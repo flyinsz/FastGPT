@@ -197,16 +197,22 @@ export default withNextCors(async function handler(req: NextApiRequest, res: Nex
     });
 
     // start model api. responseText and totalTokens: valid only if stream = false
-    const { streamResponse, responseMessages, responseText, totalTokens } =
-      await modelServiceToolMap.chatCompletion({
-        model: model.chat.chatModel,
-        apiKey: userOpenAiKey || apiKey,
-        temperature: +temperature,
-        maxToken: model.chat.maxToken,
-        messages: completePrompts,
-        stream,
-        res
-      });
+    const {
+      streamResponse,
+      responseMessages,
+      responseText,
+      totalTokens,
+      completion_tokens,
+      prompt_tokens
+    } = await modelServiceToolMap.chatCompletion({
+      model: model.chat.chatModel,
+      apiKey: userOpenAiKey || apiKey,
+      temperature: +temperature,
+      maxToken: model.chat.maxToken,
+      messages: completePrompts,
+      stream,
+      res
+    });
 
     console.log('api response time:', `${(Date.now() - startTime) / 1000}s`);
 
