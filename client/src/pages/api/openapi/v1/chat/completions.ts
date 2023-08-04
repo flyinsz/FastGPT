@@ -307,7 +307,11 @@ export default withNextCors(async function handler(req: NextApiRequest, res: Nex
         object: 'chat.completion',
         created: 1688608930,
         model: model.chat.chatModel,
-        usage: { prompt_tokens: 0, completion_tokens: 0, total_tokens: tokens },
+        usage: {
+          prompt_tokens: prompt_tokens,
+          completion_tokens: completion_tokens,
+          total_tokens: tokens
+        },
         choices: [
           { message: { role: 'assistant', content: answer }, finish_reason: 'stop', index: 0 }
         ]
